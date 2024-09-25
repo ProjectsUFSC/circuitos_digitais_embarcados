@@ -1,0 +1,343 @@
+ets Jul 29 2019 12:21:46
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0030,len:7176
+load:0x40078000,len:15564
+ho 0 tail 12 room 4
+load:0x40080400,len:4
+load:0x40080404,len:3904
+entry 0x40080640
+[0;32mI (31) boot: ESP-IDF v5.3 2nd stage bootloader[0m
+[0;32mI (31) boot: compile time Sep 25 2024 16:55:50[0m
+[0;32mI (31) boot: Multicore bootloader[0m
+[0;32mI (35) boot: chip revision: v3.1[0m
+[0;32mI (39) boot.esp32: SPI Speed      : 40MHz[0m
+[0;32mI (44) boot.esp32: SPI Mode       : DIO[0m
+[0;32mI (48) boot.esp32: SPI Flash Size : 2MB[0m
+[0;32mI (53) boot: Enabling RNG early entropy source...[0m
+[0;32mI (58) boot: Partition Table:[0m
+[0;32mI (62) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (69) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (76) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (84) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (91) boot: End of partition table[0m
+[0;32mI (96) esp_image: segment 0: paddr=00010020 vaddr=3f400020 size=09c64h ( 40036) map[0m
+[0;32mI (118) esp_image: segment 1: paddr=00019c8c vaddr=3ffb0000 size=02354h (  9044) load[0m
+[0;32mI (121) esp_image: segment 2: paddr=0001bfe8 vaddr=40080000 size=04030h ( 16432) load[0m
+[0;32mI (130) esp_image: segment 3: paddr=00020020 vaddr=400d0020 size=148f4h ( 84212) map[0m
+[0;32mI (161) esp_image: segment 4: paddr=0003491c vaddr=40084030 size=08bb0h ( 35760) load[0m
+[0;32mI (182) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (182) boot: Disabling RNG early entropy source...[0m
+[0;32mI (193) cpu_start: Multicore app[0m
+[0;32mI (202) cpu_start: Pro cpu start user code[0m
+[0;32mI (202) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (202) app_init: Application information:[0m
+[0;32mI (205) app_init: Project name:     aula_6[0m
+[0;32mI (210) app_init: App version:      800e9dd-dirty[0m
+[0;32mI (215) app_init: Compile time:     Sep 25 2024 16:55:00[0m
+[0;32mI (221) app_init: ELF file SHA256:  f4d8552b4...[0m
+[0;32mI (226) app_init: ESP-IDF:          v5.3[0m
+[0;32mI (231) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (236) efuse_init: Max chip rev:     v3.99 [0m
+[0;32mI (241) efuse_init: Chip rev:         v3.1[0m
+[0;32mI (246) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (253) heap_init: At 3FFAE6E0 len 00001920 (6 KiB): DRAM[0m
+[0;32mI (259) heap_init: At 3FFB2C20 len 0002D3E0 (180 KiB): DRAM[0m
+[0;32mI (265) heap_init: At 3FFE0440 len 00003AE0 (14 KiB): D/IRAM[0m
+[0;32mI (271) heap_init: At 3FFE4350 len 0001BCB0 (111 KiB): D/IRAM[0m
+[0;32mI (278) heap_init: At 4008CBE0 len 00013420 (77 KiB): IRAM[0m
+[0;32mI (286) spi_flash: detected chip: generic[0m
+[0;32mI (289) spi_flash: flash io: dio[0m
+[0;33mW (293) spi_flash: Detected size(4096k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (306) main_task: Started on CPU0[0m
+[0;32mI (316) main_task: Calling app_main()[0m
+[0;32mI (316) main_task: Returned from app_main()[0m
+O numero de pulsos em 1s foi -> 972
+O numero de pulsos em 1s foi -> 832
+O numero de pulsos em 1s foi -> 843
+O numero de pulsos em 1s foi -> 818
+O numero de pulsos em 1s foi -> 834
+O numero de pulsos em 1s foi -> 907
+O numero de pulsos em 1s foi -> 998
+O numero de pulsos em 1s foi -> 988
+O numero de pulsos em 1s foi -> 991
+O numero de pulsos em 1s foi -> 999
+O numero de pulsos em 1s foi -> 1002
+O numero de pulsos em 1s foi -> 1004
+O numero de pulsos em 1s foi -> 992
+O numero de pulsos em 1s foi -> 1009
+O numero de pulsos em 1s foi -> 1002
+O numero de pulsos em 1s foi -> 1006
+O numero de pulsos em 1s foi -> 1004
+O numero de pulsos em 1s foi -> 1009
+O numero de pulsos em 1s foi -> 1008
+O numero de pulsos em 1s foi -> 1005
+O numero de pulsos em 1s foi -> 1016
+O numero de pulsos em 1s foi -> 1005
+O numero de pulsos em 1s foi -> 1012
+O numero de pulsos em 1s foi -> 1009
+O numero de pulsos em 1s foi -> 1019
+O numero de pulsos em 1s foi -> 1014
+O numero de pulsos em 1s foi -> 1013
+O numero de pulsos em 1s foi -> 1025
+O numero de pulsos em 1s foi -> 984
+O numero de pulsos em 1s foi -> 1012
+O numero de pulsos em 1s foi -> 1005
+O numero de pulsos em 1s foi -> 928
+O numero de pulsos em 1s foi -> 906
+O numero de pulsos em 1s foi -> 910
+O numero de pulsos em 1s foi -> 916
+O numero de pulsos em 1s foi -> 892
+O numero de pulsos em 1s foi -> 895
+O numero de pulsos em 1s foi -> 881
+O numero de pulsos em 1s foi -> 886
+O numero de pulsos em 1s foi -> 909
+O numero de pulsos em 1s foi -> 913
+O numero de pulsos em 1s foi -> 928
+O numero de pulsos em 1s foi -> 930
+O numero de pulsos em 1s foi -> 943
+O numero de pulsos em 1s foi -> 946
+O numero de pulsos em 1s foi -> 934
+O numero de pulsos em 1s foi -> 950
+O numero de pulsos em 1s foi -> 952
+O numero de pulsos em 1s foi -> 943
+O numero de pulsos em 1s foi -> 950
+O numero de pulsos em 1s foi -> 936
+O numero de pulsos em 1s foi -> 933
+O numero de pulsos em 1s foi -> 956
+O numero de pulsos em 1s foi -> 902
+O numero de pulsos em 1s foi -> 993
+O numero de pulsos em 1s foi -> 1030
+O numero de pulsos em 1s foi -> 1017
+O numero de pulsos em 1s foi -> 1037
+O numero de pulsos em 1s foi -> 1027
+O numero de pulsos em 1s foi -> 1025
+O numero de pulsos em 1s foi -> 1031
+O numero de pulsos em 1s foi -> 1017
+O numero de pulsos em 1s foi -> 1023
+O numero de pulsos em 1s foi -> 1019
+O numero de pulsos em 1s foi -> 1027
+O numero de pulsos em 1s foi -> 1031
+O numero de pulsos em 1s foi -> 1019
+O numero de pulsos em 1s foi -> 1034
+O numero de pulsos em 1s foi -> 1018
+O numero de pulsos em 1s foi -> 1030
+O numero de pulsos em 1s foi -> 1024
+O numero de pulsos em 1s foi -> 1024
+O numero de pulsos em 1s foi -> 1030
+O numero de pulsos em 1s foi -> 1023
+O numero de pulsos em 1s foi -> 1035
+O numero de pulsos em 1s foi -> 1022
+O numero de pulsos em 1s foi -> 1027
+O numero de pulsos em 1s foi -> 446
+O numero de pulsos em 1s foi -> 198
+O numero de pulsos em 1s foi -> 174
+O numero de pulsos em 1s foi -> 156
+O numero de pulsos em 1s foi -> 169
+O numero de pulsos em 1s foi -> 130
+O numero de pulsos em 1s foi -> 161
+O numero de pulsos em 1s foi -> 182
+O numero de pulsos em 1s foi -> 159
+O numero de pulsos em 1s foi -> 135
+O numero de pulsos em 1s foi -> 148
+O numero de pulsos em 1s foi -> 210
+O numero de pulsos em 1s foi -> 195
+O numero de pulsos em 1s foi -> 175
+O numero de pulsos em 1s foi -> 127
+O numero de pulsos em 1s foi -> 112
+O numero de pulsos em 1s foi -> 126
+O numero de pulsos em 1s foi -> 104
+O numero de pulsos em 1s foi -> 97
+O numero de pulsos em 1s foi -> 264
+O numero de pulsos em 1s foi -> 776
+O numero de pulsos em 1s foi -> 48
+O numero de pulsos em 1s foi -> 0
+O numero de pulsos em 1s foi -> 2
+O numero de pulsos em 1s foi -> 1
+O numero de pulsos em 1s foi -> 1093
+O numero de pulsos em 1s foi -> 384
+O numero de pulsos em 1s foi -> 227
+O numero de pulsos em 1s foi -> 449
+O numero de pulsos em 1s foi -> 207
+O numero de pulsos em 1s foi -> 213
+O numero de pulsos em 1s foi -> 337
+O numero de pulsos em 1s foi -> 458
+O numero de pulsos em 1s foi -> 221
+O numero de pulsos em 1s foi -> 177
+O numero de pulsos em 1s foi -> 151
+O numero de pulsos em 1s foi -> 172
+O numero de pulsos em 1s foi -> 163
+O numero de pulsos em 1s foi -> 176
+O numero de pulsos em 1s foi -> 164
+O numero de pulsos em 1s foi -> 170
+O numero de pulsos em 1s foi -> 152
+O numero de pulsos em 1s foi -> 185
+O numero de pulsos em 1s foi -> 195
+O numero de pulsos em 1s foi -> 197
+O numero de pulsos em 1s foi -> 223
+O numero de pulsos em 1s foi -> 200
+O numero de pulsos em 1s foi -> 747
+O numero de pulsos em 1s foi -> 9
+O numero de pulsos em 1s foi -> 6
+O numero de pulsos em 1s foi -> 162
+O numero de pulsos em 1s foi -> 176
+O numero de pulsos em 1s foi -> 187
+O numero de pulsos em 1s foi -> 212
+O numero de pulsos em 1s foi -> 191
+O numero de pulsos em 1s foi -> 185
+O numero de pulsos em 1s foi -> 223
+O numero de pulsos em 1s foi -> 275
+O numero de pulsos em 1s foi -> 274
+O numero de pulsos em 1s foi -> 226
+O numero de pulsos em 1s foi -> 226
+O numero de pulsos em 1s foi -> 216
+O numero de pulsos em 1s foi -> 254
+O numero de pulsos em 1s foi -> 229
+O numero de pulsos em 1s foi -> 246
+O numero de pulsos em 1s foi -> 245
+O numero de pulsos em 1s foi -> 225
+O numero de pulsos em 1s foi -> 256
+O numero de pulsos em 1s foi -> 270
+O numero de pulsos em 1s foi -> 265
+O numero de pulsos em 1s foi -> 240
+O numero de pulsos em 1s foi -> 241
+O numero de pulsos em 1s foi -> 293
+O numero de pulsos em 1s foi -> 263
+O numero de pulsos em 1s foi -> 269
+O numero de pulsos em 1s foi -> 252
+O numero de pulsos em 1s foi -> 277
+O numero de pulsos em 1s foi -> 311
+O numero de pulsos em 1s foi -> 315
+O numero de pulsos em 1s foi -> 37946
+O numero de pulsos em 1s foi -> 41782
+O numero de pulsos em 1s foi -> 41359
+O numero de pulsos em 1s foi -> 41755
+O numero de pulsos em 1s foi -> 43091
+O numero de pulsos em 1s foi -> 41593
+O numero de pulsos em 1s foi -> 20822
+O numero de pulsos em 1s foi -> 512
+O numero de pulsos em 1s foi -> 11293
+O numero de pulsos em 1s foi -> 27088
+O numero de pulsos em 1s foi -> 25772
+O numero de pulsos em 1s foi -> 26593
+O numero de pulsos em 1s foi -> 18057
+O numero de pulsos em 1s foi -> 685
+O numero de pulsos em 1s foi -> 5574
+O numero de pulsos em 1s foi -> 24137
+O numero de pulsos em 1s foi -> 41
+O numero de pulsos em 1s foi -> 39
+O numero de pulsos em 1s foi -> 43
+O numero de pulsos em 1s foi -> 62
+O numero de pulsos em 1s foi -> 129
+O numero de pulsos em 1s foi -> 16161
+O numero de pulsos em 1s foi -> 34148
+O numero de pulsos em 1s foi -> 34931
+O numero de pulsos em 1s foi -> 35059
+O numero de pulsos em 1s foi -> 35683
+O numero de pulsos em 1s foi -> 35982
+O numero de pulsos em 1s foi -> 28234
+O numero de pulsos em 1s foi -> 18352
+O numero de pulsos em 1s foi -> 778
+O numero de pulsos em 1s foi -> 41272
+O numero de pulsos em 1s foi -> 45817
+O numero de pulsos em 1s foi -> 46038
+O numero de pulsos em 1s foi -> 46021
+O numero de pulsos em 1s foi -> 45665
+O numero de pulsos em 1s foi -> 45375
+O numero de pulsos em 1s foi -> 44456
+O numero de pulsos em 1s foi -> 44636
+O numero de pulsos em 1s foi -> 44937
+O numero de pulsos em 1s foi -> 46584
+O numero de pulsos em 1s foi -> 47301
+O numero de pulsos em 1s foi -> 46428
+O numero de pulsos em 1s foi -> 46861
+O numero de pulsos em 1s foi -> 46568
+O numero de pulsos em 1s foi -> 47166
+O numero de pulsos em 1s foi -> 47677
+O numero de pulsos em 1s foi -> 47024
+O numero de pulsos em 1s foi -> 46604
+O numero de pulsos em 1s foi -> 45000
+O numero de pulsos em 1s foi -> 45951
+O numero de pulsos em 1s foi -> 45007
+O numero de pulsos em 1s foi -> 44573
+O numero de pulsos em 1s foi -> 45281
+O numero de pulsos em 1s foi -> 45386
+O numero de pulsos em 1s foi -> 45643
+O numero de pulsos em 1s foi -> 44843
+O numero de pulsos em 1s foi -> 45640
+O numero de pulsos em 1s foi -> 46038
+O numero de pulsos em 1s foi -> 46690
+O numero de pulsos em 1s foi -> 46847
+O numero de pulsos em 1s foi -> 46501
+O numero de pulsos em 1s foi -> 47019
+O numero de pulsos em 1s foi -> 46627
+O numero de pulsos em 1s foi -> 47064
+O numero de pulsos em 1s foi -> 46591
+O numero de pulsos em 1s foi -> 46848
+O numero de pulsos em 1s foi -> 46846
+O numero de pulsos em 1s foi -> 46834
+O numero de pulsos em 1s foi -> 47949
+O numero de pulsos em 1s foi -> 47789
+O numero de pulsos em 1s foi -> 48335
+O numero de pulsos em 1s foi -> 47917
+O numero de pulsos em 1s foi -> 48224
+O numero de pulsos em 1s foi -> 48276
+O numero de pulsos em 1s foi -> 47891
+O numero de pulsos em 1s foi -> 46820
+O numero de pulsos em 1s foi -> 47598
+O numero de pulsos em 1s foi -> 48491
+O numero de pulsos em 1s foi -> 48195
+O numero de pulsos em 1s foi -> 48715
+O numero de pulsos em 1s foi -> 48464
+O numero de pulsos em 1s foi -> 47134
+O numero de pulsos em 1s foi -> 48948
+O numero de pulsos em 1s foi -> 47930
+O numero de pulsos em 1s foi -> 47994
+O numero de pulsos em 1s foi -> 48965
+O numero de pulsos em 1s foi -> 47831
+O numero de pulsos em 1s foi -> 47960
+O numero de pulsos em 1s foi -> 48187
+O numero de pulsos em 1s foi -> 49169
+O numero de pulsos em 1s foi -> 48362
+O numero de pulsos em 1s foi -> 47244
+O numero de pulsos em 1s foi -> 46681
+O numero de pulsos em 1s foi -> 49975
+O numero de pulsos em 1s foi -> 50051
+O numero de pulsos em 1s foi -> 50641
+O numero de pulsos em 1s foi -> 33976
+O numero de pulsos em 1s foi -> 35018
+O numero de pulsos em 1s foi -> 49585
+O numero de pulsos em 1s foi -> 49055
+O numero de pulsos em 1s foi -> 49563
+O numero de pulsos em 1s foi -> 11541
+O numero de pulsos em 1s foi -> 49177
+O numero de pulsos em 1s foi -> 44471
+O numero de pulsos em 1s foi -> 18942
+O numero de pulsos em 1s foi -> 48576
+O numero de pulsos em 1s foi -> 47663
+O numero de pulsos em 1s foi -> 47082
+O numero de pulsos em 1s foi -> 47608
+O numero de pulsos em 1s foi -> 47218
+O numero de pulsos em 1s foi -> 48129
+O numero de pulsos em 1s foi -> 47751
+O numero de pulsos em 1s foi -> 38807
+O numero de pulsos em 1s foi -> 45483
+O numero de pulsos em 1s foi -> 3354
+O numero de pulsos em 1s foi -> 3678
+O numero de pulsos em 1s foi -> 3572
+O numero de pulsos em 1s foi -> 4400
+O numero de pulsos em 1s foi -> 2928
+O numero de pulsos em 1s foi -> 3154
+O numero de pulsos em 1s foi -> 3149
+O numero de pulsos em 1s foi -> 5146
+O numero de pulsos em 1s foi -> 3234
+O numero de pulsos em 1s foi -> 3347
+O numero de pulsos em 1s foi -> 3726
+O numero de pulsos em 1s foi -> 3190
+O numero de pulsos em 1s foi -> 7869
+O numero de pulsos em 1s foi -> 12844
+O numero de pulsos em 1s foi -> 7
+O numero de pulsos em 1s foi -> 2
