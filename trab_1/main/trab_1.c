@@ -1,112 +1,124 @@
 #include <stdio.h>
+#include "driver/gpio.h"
+#include "esp_timer.h"
+#include "driver/uart.h"
+#include "esp_rom_sys.h" // Para esp_rom_delay_us()
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "freertos/queue.h"
-#include "driver/gpio.h"
-#include "esp_chip_info.h"
-#include "esp_flash.h"
-#include "esp_system.h"
-#include "esp_log.h"
-#include "esp_timer.h"
 
-// Definindo os pinos do sensor HC-SR04
-#define TRIG_PIN GPIO_NUM_18
-#define ECHO_PIN GPIO_NUM_19
+#define TRIGGER_GPIO 22   // Defina o pino de trigger conforme sua conexão
+#define ECHO_GPIO    23   // Defina o pino de echo conforme sua conexão
 
-// Definindo tags para logs
-static const char *TAG = "trena_digital";
+volatile float basic_height = 0;
+volatile float height = 0;
+volatile float distance = 0;
 
-// Variável para armazenar a altura calibrada
-float altura_calibrada = 0.0;
+static const int RX_BUF_SIZE = 1024;
 
-// Função para inicializar o sensor
-void init_hcsr04() {
-    gpio_set_direction(TRIG_PIN, GPIO_MODE_OUTPUT);
-    gpio_set_direction(ECHO_PIN, GPIO_MODE_INPUT);
+// Função para capturar a entrada pela UART
+int uart_get_input() {
+    uint8_t data[1];
+    int len = uart_read_bytes(UART_NUM_0, data, sizeof(data), pdMS_TO_TICKS(5000));
+    if (len > 0) {
+        printf("%c\n", data[0]);
+        return data[0];
+    } else {
+        printf("!!!!Nenhum dado capturado pela UART!!!\n");
+    }
+    return -1;
 }
 
-// Função para capturar a distância (em cm)
-float get_distance_cm() {
-    // Envia um pulso de 10us para o pino TRIG
-    gpio_set_level(TRIG_PIN, 1);
-    esp_rom_delay_us(10);
-    gpio_set_level(TRIG_PIN, 0);
-
-    // Aguarda o pino ECHO subir
-    while (gpio_get_level(ECHO_PIN) == 0);
-    
-    // Marca o tempo de início
-    int64_t start_time = esp_timer_get_time();
-    
-    // Aguarda o pino ECHO descer
-    while (gpio_get_level(ECHO_PIN) == 1);
-    
-    // Marca o tempo final
-    int64_t end_time = esp_timer_get_time();
-
-    // Calcula a duração do pulso ECHO
-    int64_t pulse_duration = end_time - start_time;
-
-    // A fórmula para converter o tempo do pulso em cm é:
-    // distância (em cm) = duração do pulso (em microsegundos) * 0.0343 / 2
-    float distance_cm = (pulse_duration * 0.0343) / 2.0;
-
-    return distance_cm;
-}
-
-// Tarefa para capturar a altura continuamente
-void task_captura_altura(void *pvParameters) {
+// Função que mede a altura/distance com o sensor ultrassônico
+void set_height() {
     while (1) {
-        float altura = get_distance_cm();
-        ESP_LOGI(TAG, "Altura medida: %.2f cm", altura);
-        vTaskDelay(pdMS_TO_TICKS(2000)); // Atualiza a cada 2 segundos
+        gpio_set_level(TRIGGER_GPIO, 0);
+        vTaskDelay(pdMS_TO_TICKS(2));
+
+        gpio_set_level(TRIGGER_GPIO, 1);
+        esp_rom_delay_us(10); 
+        gpio_set_level(TRIGGER_GPIO, 0);
+
+        while (gpio_get_level(ECHO_GPIO) == 0);
+        int64_t startTime = esp_timer_get_time();
+
+        while (gpio_get_level(ECHO_GPIO) == 1);
+        int64_t endTime = esp_timer_get_time();
+
+        int64_t duration = endTime - startTime;
+        distance = duration / 58.0;  // Calcula a distância em cm
+
+        vTaskDelay(pdMS_TO_TICKS(200)); 
     }
 }
 
-// Função para o menu
-void mostra_menu() {
-    printf("\nMENU:\n");
-    printf("[1] - Captura a altura para calibragem\n");
-    printf("[2] - Mostra a altura capturada\n");
-    printf("[0] - Sair\n");
+float get_distance() {
+    return distance;
 }
 
-// Tarefa para o menu de opções
-void task_menu(void *pvParameters) {
-    int opcao;
-    while (1) {
-        mostra_menu();
-        printf("Escolha uma opção: ");
-        scanf("%d", &opcao);
-        
-        switch (opcao) {
-            case 1:
-                // Captura a altura para calibragem
-                altura_calibrada = get_distance_cm();
-                printf("Altura calibrada: %.2f cm\n", altura_calibrada);
-                break;
-            case 2:
-                // Mostra a altura calibrada
-                printf("Altura calibrada: %.2f cm\n", altura_calibrada);
-                break;
-            case 0:
-                // Sai do menu
-                printf("Saindo...\n");
-                vTaskDelete(NULL);
-                break;
-            default:
-                printf("Opção inválida!\n");
-                break;
+// Função que exibe o menu
+void menu() {
+    int c;
+    while (1) {   
+        printf(
+            "\nMENU \n"
+            "Para realizar a calibragem, instale o sensor na posição final.\n"
+            "[1] - Captura a altura para calibragem.\n"
+            "[2] - Mostra a altura capturada.\n"
+            "[0] - Retorna ao menu principal.\n"
+            "Escolha uma opção: ");
+
+        c = uart_get_input();
+        if (c == -1) {
+            printf("Nenhuma entrada capturada. Tente novamente.\n");
+            continue;
         }
 
-        vTaskDelay(pdMS_TO_TICKS(1000)); // Evita sobrecarga da CPU
+        switch (c) {
+            case '1':
+                basic_height = get_distance();
+                printf("\nDistância de calibragem: %.2f cm\n", basic_height);
+                break;
+            case '2':
+                height = get_distance();
+                float aux = basic_height - height;
+                printf("\nA altura é: %.2f cm\n", aux);
+                break;
+            case '0':
+                printf("\nRetornando ao menu principal...\n");
+                return;
+            default:
+                printf("\nOpção inválida. Tente novamente.\n");
+                break;
+        }
     }
 }
 
-void app_main() {
-    init_hcsr04(); // Inicializa o sensor
 
-    // Cria as tarefas em diferentes núcleos
-    xTaskCreatePinnedToCore(task_menu, "task_menu", 2048, NULL, 1, NULL, 0); // Core 0
-    xTaskCreatePinnedToCore(task_captura_altura, "task_captura_altura", 2048, NULL, 1, NULL, 1); // Core 1
+void app_main(void) {
+    gpio_config_t io_conf = {
+        .intr_type = GPIO_INTR_DISABLE,
+        .mode = GPIO_MODE_OUTPUT,
+        .pin_bit_mask = (1ULL << TRIGGER_GPIO),
+        .pull_down_en = 0,
+        .pull_up_en = 0
+    };
+    gpio_config(&io_conf);
+
+    io_conf.mode = GPIO_MODE_INPUT;
+    io_conf.pin_bit_mask = (1ULL << ECHO_GPIO);
+    gpio_config(&io_conf);
+    
+    uart_config_t uart_config = {
+        .baud_rate = 115200,
+        .data_bits = UART_DATA_8_BITS,
+        .parity    = UART_PARITY_DISABLE,
+        .stop_bits = UART_STOP_BITS_1,
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
+    };
+
+    uart_driver_install(UART_NUM_0, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_param_config(UART_NUM_0, &uart_config);
+
+    xTaskCreatePinnedToCore(&menu, "menu_task", 2048, NULL, 5, NULL, 0);
+    xTaskCreatePinnedToCore(&set_height, "sensor_task", 2048, NULL, 5, NULL, 1);
 }
