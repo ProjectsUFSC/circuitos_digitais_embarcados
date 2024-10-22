@@ -13,8 +13,6 @@ volatile float basic_height = 0;
 volatile float height = 0;
 volatile float distance = 0;
 
-static const int RX_BUF_SIZE = 1024;
-
 // Função para capturar a entrada pela UART
 int uart_get_input() {
     uint8_t data[1];
@@ -116,7 +114,7 @@ void app_main(void) {
         .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
     };
 
-    uart_driver_install(UART_NUM_0, RX_BUF_SIZE * 2, 0, 0, NULL, 0);
+    uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0);
     uart_param_config(UART_NUM_0, &uart_config);
 
     xTaskCreatePinnedToCore(&menu, "menu_task", 2048, NULL, 5, NULL, 0);
