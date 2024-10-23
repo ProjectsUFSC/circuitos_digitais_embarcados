@@ -6,8 +6,8 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
-#define TRIGGER_GPIO 22   // Defina o pino de trigger conforme sua conexão
-#define ECHO_GPIO    23   // Defina o pino de echo conforme sua conexão
+#define TRIGGER_GPIO 22  
+#define ECHO_GPIO    23   
 
 volatile float basic_height = 0;
 volatile float height = 0;
@@ -16,7 +16,7 @@ volatile float distance = 0;
 // Função para capturar a entrada pela UART
 int uart_get_input() {
     uint8_t data[1];
-    int len = uart_read_bytes(UART_NUM_0, data, sizeof(data), pdMS_TO_TICKS(5000));
+    int len = uart_read_bytes(UART_NUM_0, data, sizeof(data), portMAX_DELAY);
     if (len > 0) {
         printf("%c\n", data[0]);
         return data[0];
@@ -45,7 +45,7 @@ void set_height() {
         int64_t duration = endTime - startTime;
         distance = duration / 58.0;  // Calcula a distância em cm
 
-        vTaskDelay(pdMS_TO_TICKS(200)); 
+        vTaskDelay(pdMS_TO_TICKS(200)); // Delay para n sobrecarregar 
     }
 }
 
@@ -66,10 +66,6 @@ void menu() {
             "Escolha uma opção: ");
 
         c = uart_get_input();
-        if (c == -1) {
-            printf("Nenhuma entrada capturada. Tente novamente.\n");
-            continue;
-        }
 
         switch (c) {
             case '1':
@@ -83,7 +79,7 @@ void menu() {
                 break;
             case '0':
                 printf("\nRetornando ao menu principal...\n");
-                return;
+                break;
             default:
                 printf("\nOpção inválida. Tente novamente.\n");
                 break;
@@ -107,13 +103,14 @@ void app_main(void) {
     gpio_config(&io_conf);
     
     uart_config_t uart_config = {
-        .baud_rate = 115200,
-        .data_bits = UART_DATA_8_BITS,
-        .parity    = UART_PARITY_DISABLE,
-        .stop_bits = UART_STOP_BITS_1,
-        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE
+        .baud_rate = 115200,                    //Bluetooth baud rate
+        .data_bits = UART_DATA_8_BITS,          //8 data bits
+        .parity    = UART_PARITY_DISABLE,       //No parity
+        .stop_bits = UART_STOP_BITS_1,          //1 stop bit 
+        .flow_ctrl = UART_HW_FLOWCTRL_DISABLE   //No hardware flow
     };
 
+     // se for utilizar a funcao de leitura da uart precisa instalar o driver
     uart_driver_install(UART_NUM_0, 2048, 0, 0, NULL, 0);
     uart_param_config(UART_NUM_0, &uart_config);
 
