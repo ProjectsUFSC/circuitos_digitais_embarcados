@@ -77,6 +77,9 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
 
     uint8_t rom_no[8];
 
+    // Limpa o ROM
+    memset(rom_no, 0, sizeof(rom_no));
+
     printf("*** Iniciando SEARCH_ROM ***\n");
 
     while (!last_device_flag && (num_sensores < MAX_SENSORS)) {
@@ -97,9 +100,6 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
 
         // Envia o comando SEARCH_ROM
         onewire->writeByte(SEARCH_ROM);
-
-        // Limpa o ROM
-        memset(rom_no, 0, sizeof(rom_no));
 
         // Loop para ler os 64 bits do ROM
         do {
