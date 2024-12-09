@@ -68,12 +68,11 @@ char DS18B20::CRC(char end[]) {
 	return 0;
 }
 
-std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {    
+void DS18B20::fazScan() {    
     uint8_t last_discrepancy = 0;
     bool last_device_flag = false;
     int num_sensores = 0;
 
-    std::vector<std::array<uint8_t, 8>> sensores; // Vetor para armazenar os endereços
 
     uint8_t rom_no[8];
 
@@ -94,7 +93,6 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
 
         // Inicia a comunicação
         if (onewire->reset()) {
-            printf("Nenhum dispositivo presente no barramento.\n");
             break;
         }
 
@@ -174,7 +172,6 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
             // Armazena o endereço encontrado no vetor
             std::array<uint8_t, 8> sensor_address;
             memcpy(sensor_address.data(), rom_no, 8);
-            sensores.push_back(sensor_address);
 
             // Exibe o endereço encontrado
             printf("Sensor %d: Endereco = ", num_sensores);
@@ -183,15 +180,14 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
             }
             printf("\n");
 
-            // Iniciar leitura da temperatura
+            // leitura da temperatura
             onewire->reset();
             onewire->writeByte(MATCH_ROM);
             for (const auto& byte : sensor_address) {
                 onewire->writeByte(byte);
             }
-            onewire->writeByte(0x44); // Iniciar conversão de temperatura
+            onewire->writeByte(INICIA_CONVERSAO_TEMP); 
 
-            // Aguardar a conversão
             delay_ms(750);
 
             onewire->reset();
@@ -199,7 +195,7 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
             for (const auto& byte : sensor_address) {
                 onewire->writeByte(byte);
             }
-            onewire->writeByte(0xBE); // Comando para ler o scratchpad
+            onewire->writeByte(READ_TEMP_MEMORY);
 
             uint8_t data[9];
             for (int i = 0; i < 9; i++) {
@@ -209,7 +205,7 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
             int16_t raw_temp = (data[1] << 8) | data[0];
             float temperatura = raw_temp / 16.0;
 
-            printf("Temperatura Sensor %d: %.2f Graus Celsius\n", num_sensores, temperatura);
+            printf("Temperatura Sensor %d: %.2f Graus Celsius\n\n", num_sensores, temperatura);
 
         }
 
@@ -218,12 +214,7 @@ std::vector<std::array<uint8_t, 8>> DS18B20::fazScan() {
             break;
         }
 
-        // Se não houver mais dispositivos, encerra a busca
-        if (last_discrepancy == 0) {
-            last_device_flag = true;
-        }
     }
-    return sensores;
 }
 
 

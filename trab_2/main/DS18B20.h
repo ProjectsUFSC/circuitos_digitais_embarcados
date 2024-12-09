@@ -1,7 +1,6 @@
 #include <inttypes.h>
 #include <stdio.h>
 #include <cstring>
-#include <vector>
 #include <array>
 
 #include "onewire.h"
@@ -21,5 +20,5 @@ public:
 	void programa(void);
 	void init(void);
 	void init2(void);
-	std::vector<std::array<uint8_t, 8>> fazScan(void);
+	void fazScan(void);
 };
